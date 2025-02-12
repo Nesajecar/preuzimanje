@@ -1,0 +1,235 @@
+ <!-- KOMENTAR NAVBAR:
+        - klasa navbar-expand - za sklanjene linkova na manjim ekranima tj da ga ucinimo responsivnim -LG BP npr
+         * proba sa MD, SM...
+        - .container - da napravi margine sa leve i desne strane za sadrzaj ali ne i za ceo NAV
+        - .navbar-brand - za link na mestu logoa ili logo
+        - NAVBAR LISTA - .navbar-nav -> .nav-item -> .nav-link
+        - Stavljanje LIST navbara na desno, pomeranje - sa .ms-auto (margin-start), zanimljiv efekat sa .ms-xl-auto
+            (na ispod LG kolabira NAV, izmedju LG i XL stoji ulevo, preko XL BP NAV LINK se pomera u desno) 
+            ili npr MD-LG
+             moze i sa offsetom-4,2,7...
+        - Hamburger ikonica - SPAN tag sa klasom - .navbar-toggler-icon
+        - Interesantan efekat ako LIST NAV ima samo klasu .collapse bez .navbar-collapse - pomera se ikonica
+            i ustupa mesto navbaru
+
+    -->
+    
+    <!-- <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
+        <div class="container position-relative">
+
+            <!-- Left-aligned menu items -->
+            <div class="d-flex flex-grow-1" id="navmenu">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a href="schedule_form" class="nav-link">Zakazivanje</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="appointments" class="nav-link">Lista zakazivanja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="promeni_termin" class="nav-link">Promena termina</a>
+                    </li>
+
+
+                    <!-- Center-aligned logo -->
+                    <li>
+                        <a class="navbar-brand mx-auto position-absolute top-50 start-50 translate-middle" href="#">
+                            <img src="../static/images/logo.png" alt="Logo" class="img-fluid rounded"
+                                style="width: 50px;">
+                        </a>
+                    </li>
+
+                    <!-- Right-aligned menu items -->
+                    <!-- <ul class="navbar-nav ms-auto"> -->
+                    <li class="nav-item position-absolute top-50 end-1 translate-middle">
+                        <a href="obrisi_termin" class="nav-link">Brisanje</a>
+                    </li>
+                    <li class="nav-item position-absolute top-50 end-0 translate-middle">
+                        <a href="logout" class="nav-link">Logout</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+        </div>
+    </nav> -->
+
+
+
+    <div class="container mt-5 w-50">
+        <div id="carouselFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="2000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../static/images/carousel1.png" class="d-block w-100" alt="Slika 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="../static/images/carousel2.png" class="d-block w-100" alt="Slika 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="../static/images/carousel3.png" class="d-block w-100" alt="Slika 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselFade" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div> -->
+
+
+
+
+    <div class="container text-center my-3">
+        <div class="row mx-auto my-auto justify-content-center">
+            <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner c1" role="listbox">
+                    <div class="carousel-item i1 ms-3 me-3 active">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img me-5">
+                                    <img src="../static/images/carousel1.png" class="img-fluid ms-3 mw-100" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 1</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i1">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel2.png" class="img-fluid me-3 ms-3 mw-100" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 2</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i1">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel3.png" class="img-fluid me-3 ms-3 mw-100" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 3</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i1">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel4.png" class="img-fluid me-3 ms-3 mw-100" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 4</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i1">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel5.png" class="img-fluid me-3 ms-3 mw-100" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 3</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i1">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel2.png" class="img-fluid me-3 ms-3 mw-100" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 4</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container text-center my-3">
+        <div class="row mx-auto my-auto justify-content-center">
+            <div id="recipeCarousel2" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner c2" role="listbox">
+                    <div class="carousel-item i2 ms-3 me-3 active">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img me-5">
+                                    <img src="../static/images/carousel1.png" class="img-fluid ms-3" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 1</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i2">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel2.png" class="img-fluid me-3 ms-3" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 2</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i2">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel3.png" class="img-fluid me-3 ms-3" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 3</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i2">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel4.png" class="img-fluid me-3 ms-3" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 4</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i2 ">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel5.png" class="img-fluid me-3 ms-3" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 4</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item i2">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img">
+                                    <img src="../static/images/carousel3.png" class="img-fluid me-3 ms-3" />
+                                </div>
+                                <!-- <div class="card-img-overlay">Slide 4</div> -->
+                            </div>
+                        </div>
+                    </div>
+                   
+
+                </div>
+
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honey House </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style>
+        body::before {
+            display: block;
+            height: 60px;
+            content: "";
+        }
+
+        @media (max-width: 768px) {
+            .sticky-column {
+                position: static;
+                /* ili relative */
+            }
+
+
+        }
+
+
+
+        .btn-custom {
+            color: white;
+        }
+
+        .btn-custom:hover {
+            color: black;
+            /* Menja boju teksta na hover */
+            transition: color 0.3s ease;
+            /* Tranzicija za boju teksta */
+        }
+
+
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes slide-reverse {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+        .carousel-inner .carousel-item {
+            display: flex;
+            animation: slide 20s linear infinite;
+            /* Adjust the duration as needed */
+            overflow: hidden;
+        }
+
+        .c2 .i2 {
+            display: flex;
+            animation: slide-reverse 20s linear infinite;
+            /* Adjust the duration as needed */
+        }
+
+        @media (max-width: 767px) {
+            .carousel-inner .carousel-item>div {
+                display: none;
+            }
+
+            .carousel-inner .carousel-item>div:first-child {
+                display: block;
+            }
+
+
+            .c2 .i2>div {
+                display: none;
+            }
+
+            .c2 .i2>div:first-child {
+                display: block;
+            }
+        }
+
+        .carousel-inner .carousel-item.active,
+        .carousel-inner .carousel-item-next,
+        .carousel-inner .carousel-item-prev {
+            display: flex;
+        }
+
+        .c2 .i2.active,
+        .c2 .i2-next,
+        .c2 .i2-prev {
+            display: flex;
+        }
+
+        /* medium and up screens */
+        @media (min-width: 768px) {
+
+            .carousel-inner .carousel-item-end.active,
+            .carousel-inner .carousel-item-next {
+                transform: translateX(25%);
+            }
+
+            .carousel-inner .carousel-item-start.active,
+            .carousel-inner .carousel-item-prev {
+                transform: translateX(-25%);
+            }
+
+
+
+            .c2 .i2-end.active,
+            .c2 .i2-next {
+                transform: translateX(-25%);
+            }
+
+            .c2 .i2-start.active,
+            .c2 .i2-prev {
+                transform: translateX(25%);
+            }
+
+        }
+
+        .carousel-inner .carousel-item-end,
+        .carousel-inner .carousel-item-start {
+            transform: translateX(0);
+        }
+
+        .c2 .i2-end,
+        .c2 .i2-start {
+            transform: translateX(180);
+        }
+
+        .card-img img {
+            object-fit: cover;
+            border: none;
+        }
+
+
+
+
+
+        .testimonial {
+            border: #963E13;
+            /* Razmak za apostrof */
+        }
+
+        .testimonial-text::before {
+            content: '“';
+            /* Stilizovani apostrof */
+            font-size: 3em;
+            /* Veličina apostrofa */
+            position: absolute;
+            top: -30px;
+            /* Pomeranje na gornji deo */
+            left: -10px;
+            /* Pozicija u levom uglu */
+            color: grey;
+            /* Boja apostrofa */
+
+        }
+
+        .testimonial-text {
+            font-size: 1.5em;
+            /* Veliki font za utisak */
+            position: relative;
+            /* Potrebno za pozicioniranje ::before */
+            z-index: 1;
+        }
+
+
+
+        .client-name {
+            text-align: left;
+            font-size: 1em;
+            /* Manji font za ime klijenta */
+            margin-top: 10px;
+            /* Razmak iznad imena */
+        }
+
+        .arrow-button {
+            font-size: 1.5em;
+            /* Veličina strelica */
+            border: none;
+            /* Ukloni border */
+            background-color: transparent;
+            /* Transparentna pozadina */
+            color: #963E13;
+            /* Boja dugmadi */
+            width: 50px;
+            /* Širina dugmadi */
+            height: 50px;
+            /* Visina dugmadi */
+            position: absolute;
+            /* Apsolutno pozicioniranje */
+            top: 50%;
+            /* Vertikalno centrirano */
+            transform: translateY(-50%);
+            /* Pomeranje za centriranje */
+            right: 20px;
+            /* Udaljenost od desne strane */
+        }
+
+        .arrow-button:first-child {
+            right: 80px;
+            /* Udaljenost za prvu strelicu */
+        }
+
+
+
+
+
+
+        .testimonial-text,
+        .client-name {
+            opacity: 0;
+            transform: translateX(50%);
+            /* Početna pozicija desno */
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        .show {
+            opacity: 1;
+        }
+
+        .slide-in-left {
+            transform: translateX(0);
+            /* Dođe u normalnu poziciju */
+        }
+
+        .slide-in-right {
+            transform: translateX(0);
+            /* Dođe u normalnu poziciju */
+        }
+
+        .arrow-button {
+            border: none;
+            background: transparent;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        #button-left {
+            left: 10%;
+        }
+
+        #button-right {
+            right: 10%;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <!-- Navbar START-->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
+        <div class="container">
+
+            <!-- Navbar toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content for mobile -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a href="schedule_form" class="nav-link btn-custom">Zakazivanje</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="appointments" class="nav-link">Lista zakazivanja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="promeni_termin" class="nav-link">Promena termina</a>
+                    </li>
+
+                </ul>
+
+                <!-- Center-aligned logo -->
+                <a class="navbar-brand mx-auto position-absolute top-50 start-50 translate-middle" href="#">
+                    <img src="../static/images/logo.png" alt="Logo" class="img-fluid rounded" style="width: 50px;">
+                </a>
+
+                <!-- Right-aligned menu items -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="obrisi_termin" class="nav-link">Brisanje</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logout" class="nav-link">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navbar END-->
+
+    <!-- Showcase Section START -->
+    <section class="bg-dark text-light text-center text-sm-start p-lg-0 pt-lg-5">
+        <div class="container">
+            <div class="d-sm-flex align-items-center justify-content-center pb-3">
+                <!-- Kontejner za sliku -->
+                <div class="image-container position-relative">
+                    <!-- Slika sa paddingom -->
+                    <img src="../static/images/front-image.png" alt="" class="img-fluid mx-auto"
+                        style="border-radius: 4rem; width: 100%; filter: brightness(70%);">
+
+                    <!-- Tekst u donjem levom uglu slike -->
+                    <p class="position-absolute display-2 mb-3" style="bottom: 11rem; left: 3rem; margin: 0; ">
+                        Experience beauty and
+                    </p>
+                    <p class="position-absolute display-2 mb-3" style="bottom: 7rem; left: 3rem; margin: 0; ">
+                        wellness like never
+                    </p>
+                    <p class="position-absolute display-2 mb-3" style="bottom: 3rem; left: 3rem; margin: 0; ">
+                        before
+                    </p>
+
+                    <!-- Dugme u donjem desnom uglu slike -->
+                    <button class="btn btn-outline-light btn-lg position-absolute btn-custom"
+                        style="bottom: 3rem; right: 3rem;">
+                        Make a reservation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Showcase Section END -->
+
+
+    <!-- Two-column Section START -->
+    <section class="p-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Prvi paragraf koji zauzima polovinu -->
+                <div class="col-12 col-md-6">
+                    <h2>
+                        We are more than a beauty salon, we are place where you can enjoy and relax
+                    </h2>
+                    <button class="btn btn-outline-dark btn-lg rounded-pill mt-3 ">
+                        About Us
+                    </button>
+                </div>
+
+                <!-- Drugi paragraf koji zauzima polovinu -->
+                <div class="col-12 col-md-6">
+                    <p class="p-3">
+                        Duis vehicula lorem in libero congue, nec malesuada lacus suscipit. Ut at nisl at
+                        arcu bibendum suscipit eget sed turpis. Nam non felis gravida, feugiat libero
+                        ut, cursus arcu. Cras vitae nunc nec tortor ultricies convallis ac eget urna.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Two-column Section END -->
+
+
+    <!-- Cards section START -->
+    <section class="container my-5">
+        <div class="row">
+            <!-- Leva kolona (7 od 12 col) -->
+            <div class="col-lg-7 d-flex flex-column justify-content-start mt-5">
+                <!--  position-sticky    sticky-column  style="top: 70px; height: 100vh;"  -->
+                <!-- Linija i tekst u istom redu -->
+                <div class="d-flex align-items-center mb-3">
+                    <hr class="mx-2" style="width: 40px; height: 2px; background-color: #963E13;">
+                    <span>EXCELLENCE ACROSS MULTIPLE<br>DISCIPLINES</span> <!-- Ovo može biti span ili p tag -->
+                </div>
+
+                <!-- Naslov h2 -->
+                <h2 class="fw-bold mt-2">We Specialize</h2>
+            </div>
+
+            <!-- Desna kolona (5 od 12 col) -->
+            <div class="col-lg-5">
+                <!-- Kartica 1 -->
+                <div class="card mb-2 border-0 border-top" style="border-top-color: #963E13;">
+                    <div class="card-body">
+                        <span class="d-block mb-3" style="color: #963E13;">01</span> <!-- Brojevi unutar span tag-a -->
+                        <h3 class="card-title mb-3">Styling Long Hair</h3>
+                        <p class="card-text mb-5">Long hair offers endless possibilities. Our experts will help you
+                            achieve the perfect look with the best products
+                            and techniques, whether you want curls, straight hair, or layers.
+                        </p>
+                        <button class="btn rounded-pill text-white" style="background-color: #963E13;">Read
+                            More</button>
+                    </div>
+                </div>
+                <!-- Kartica 2 -->
+                <div class="card mb-2 border-0 border-top" style="border-top-color: #963E13;">
+                    <div class="card-body">
+                        <span class="d-block mb-3" style="color: #963E13;">02</span>
+                        <h3 class="card-title mb-3">Styling Short Hair</h3>
+                        <p class="card-text mb-5">Short hair offers a sleek, stylish look. Our experts will help you
+                            achieve the perfect cut, whether you want sharp lines,
+                            textured layers, or a modern pixie style, using the best techniques and products.
+                        </p>
+                        <button class="btn rounded-pill text-white" style="background-color: #963E13;">Read
+                            More</button>
+                    </div>
+                </div>
+                <!-- Kartica 3 -->
+                <div class="card mb-2 border-0 border-top" style="border-top-color: #963E13;">
+                    <div class="card-body">
+                        <span class="d-block mb-3" style="color: #963E13;">03</span>
+                        <h3 class="card-title mb-3">Styling a Bob</h3>
+                        <p class="card-text mb-5">A bob is a timeless classic. Our experts will help you achieve the
+                            perfect bob, whether you prefer it straight, wavy, or layered,
+                            using the best products and techniques for a flawless finish.
+                        </p>
+                        <button class="btn rounded-pill text-white" style="background-color: #963E13;">Read
+                            More</button>
+                    </div>
+                </div>
+                <!-- Kartica 4 -->
+                <div class="card mb-2 border-0 border-top border-bottom" style="border-color: #963E13;">
+                    <div class="card-body">
+                        <span class="d-block mb-3" style="color: #963E13;">04</span>
+                        <h3 class="card-title mb-3">Shoulder-Length Hair</h3>
+                        <p class="card-text mb-5">Shoulder-length hair offers versatility and style. Our experts will
+                            help you achieve the perfect look, whether you want it straight,
+                            wavy, or layered, using top products and techniques for a stunning result.
+                        </p>
+                        <button class="btn rounded-pill text-white mb-3" style="background-color: #963E13;">Read
+                            More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Cards section END -->
+
+
+
+
+    <!-- Bottom Image START -->
+    <section class="bg-white text-light text-center text-sm-start p-lg-0 pt-lg-5">
+        <div class="container">
+            <div class="d-sm-flex align-items-stretch justify-content-center pb-3 position-relative"
+                style="max-width: 100%; height: 100%;">
+
+                <!-- Kontejner za sliku sa zaobljenim ivicama -->
+                <div class="image-container flex-fill w-100" style="min-width: 50%;">
+                    <!-- Slika sa paddingom i smanjenom svetlinom -->
+                    <img src="../static/images/bottom-image-feniranje.png" alt="" class="img-fluid mx-auto"
+                        style="border-radius: 4rem 0 0 4rem; width: 100%; height: 100%; object-fit: cover; filter: brightness(70%);">
+                </div>
+
+                <!-- Kontejner za tekst sa zaobljenim desnim uglovima, iste širine kao slika -->
+                <div class="bg-dark text-white p-4 d-flex flex-column flex-grow-1 w-100" id="bottom-image-item-text"
+                    style="border-radius: 0 4rem 4rem 0; ">
+                    <!-- Tekst u divu, sa odgovarajućim poravnanjem -->
+                    <p class="mb-1 p-4 h3">
+                        Best solution for your hair
+                    </p>
+                    <div class="d-flex flex-column justify-content-end flex-grow-1">
+                        <p class="mb-1 h1 p-4">
+                            Enhance your look <br>today with us
+                        </p>
+                        <p class="p-4">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Bottom Image END -->
+
+
+
+
+
+
+    <!-- CAROUSEL - START -->
+    <div class="bg-dark p-5">
+
+        <div class="container text-center my-3 ">
+            <div class="row mx-auto my-auto justify-content-center">
+                <div id="recipeCarousel2" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner c2" role="listbox">
+                        <div class="carousel-item i2 ms-3 me-3 active">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img me-5">
+                                        <img src="../static/images/carousel1.png" class="img-fluid ms-3" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 1</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i2">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel2.png" class="img-fluid me-3 ms-3" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 2</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i2">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel3.png" class="img-fluid me-3 ms-3" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 3</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i2">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel4.png" class="img-fluid me-3 ms-3" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 4</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i2 ">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel5.png" class="img-fluid me-3 ms-3" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 4</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i2">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel3.png" class="img-fluid me-3 ms-3" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 4</div> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container text-center my-3">
+            <div class="row mx-auto my-auto justify-content-center">
+                <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner c1" role="listbox">
+                        <div class="carousel-item i1 ms-3 me-3 active">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img me-5">
+                                        <img src="../static/images/carousel1.png" class="img-fluid ms-3 mw-100" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 1</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i1">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel2.png" class="img-fluid me-3 ms-3 mw-100" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 2</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i1">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel3.png" class="img-fluid me-3 ms-3 mw-100" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 3</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i1">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel4.png" class="img-fluid me-3 ms-3 mw-100" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 4</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i1">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel5.png" class="img-fluid me-3 ms-3 mw-100" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 3</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item i1">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="../static/images/carousel2.png" class="img-fluid me-3 ms-3 mw-100" />
+                                    </div>
+                                    <!-- <div class="card-img-overlay">Slide 4</div> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CAROUSEL - END -->
+
+
+    <section class="testimonials bg-dark text-white py-5">
+        <div class="container">
+
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h3>Utisci Klijenata</h3>
+                    <p>Pročitajte šta naši klijenti kažu o nama.</p>
+                </div>
+                <div class="col-md-6 pe-5 position-relative">
+                    <button class="me-5 arrow-button" id="button-left">
+                        <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19.5 39L22.9369 35.5631L9.33562 21.9375L39 21.9375L39 17.0625L9.33562 17.0625L22.9369 3.43688L19.5 1.70474e-06L-1.70474e-06 19.5L19.5 39Z"
+                                fill="#963E13" />
+                        </svg>
+                    </button>
+                    <button class="me-5 arrow-button" id="button-right">
+                        <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19.5 0L16.0631 3.43687L29.6644 17.0625H0V21.9375H29.6644L16.0631 35.5631L19.5 39L39 19.5L19.5 0Z"
+                                fill="#963E13" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="testimonial position-relative">
+                        <p class="testimonial-text" id="testimonial-text-1">the team's expertise in hair styling
+                            resulted in stunning and
+                            personalized looks that exceeded our expectations.
+                            Their attention to detail and creativity transformed our salon experience...</p>
+                        <p class="client-name" id="client-name-1">Marko Marković</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="testimonial position-relative">
+                        <p class="testimonial-text" id="testimonial-text-2">the team's expertise in hair styling
+                            resulted in stunning and
+                            personalized looks that exceeded our expectations.
+                            Their attention to detail and creativity transformed our salon experience...</p>
+                        <p class="client-name" id="client-name-2">Ana Anić</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div class="container" style="height: 700px; background-color: #963E13;"> -->
+
+    </div>
+
+    <footer class="container">
+        <div class="contact-info">
+            <p><i class="fas fa-phone"></i> 123-456-7890</p>
+            <p><i class="fas fa-envelope"></i> info@inhomesalon.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, Anytown, USA</p>
+        </div>
+        <div class="social-media">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <script>
+
+        let items = document.querySelectorAll('.c1 .i1'); //.carousel-item
+        console.log(items)
+        items.forEach((el) => {
+            const minPerSlide = 4;
+            let next = el.nextElementSibling;
+            for (var i = 1; i < minPerSlide; i++) {
+                if (!next) {
+                    // wrap carousel by using first child
+                    next = items[0];
+                }
+                let cloneChild = next.cloneNode(true);
+                console.log(cloneChild)
+                el.appendChild(cloneChild.children[0]);
+                next = next.nextElementSibling;
+                console.log(next)
+            }
+        });
+
+        let items2 = document.querySelectorAll('.c2 .i2');
+        console.log(items2)
+        items2.forEach((el) => {
+            const minPerSlide = 4;
+            let next = el.nextElementSibling;
+            for (var i = 1; i < minPerSlide; i++) {
+                if (!next) {
+                    // wrap carousel by using first child
+                    next = items2[0];
+                }
+                let cloneChild = next.cloneNode(true);
+                el.appendChild(cloneChild.children[0]);
+                next = next.nextElementSibling;
+            }
+        });
+
+
+
+
+
+
+
+
+        //id="button-left", button-right, testimonial-text-1, 2 , client-name-1, 2
+        const testimonials = [
+            {
+                testimonial: "Uvek izlazim iz salona sa osmehom! Frizura je savršena svaki put.",
+                client: "Jelena Petrović"
+            },
+            {
+                testimonial: "Tim je veoma ljubazan, a atmosfera je uvek prijatna. Preporučujem svima!",
+                client: "Marko Jovanović"
+            },
+            {
+                testimonial: "Moj omiljeni frizerski salon! Uvek dobijem savete za negu kose.",
+                client: "Ana Milenković"
+            },
+            {
+                testimonial: "Kreativnost stilista je neverovatna. Uvek se osećam posebno!",
+                client: "Nikola Ristić"
+            },
+            {
+                testimonial: "Odlične usluge i veoma profesionalno osoblje. Ne bih menjala ovaj salon!",
+                client: "Marija Savić"
+            }
+        ];
+
+        const leftBtn = document.getElementById('button-left');
+        const rightBtn = document.getElementById('button-right');
+        const testimonialText1 = document.getElementById('testimonial-text-1');
+        const testimonialText2 = document.getElementById('testimonial-text-2');
+        const clientName1 = document.getElementById('client-name-1');
+        const clientName2 = document.getElementById('client-name-2');
+
+
+        let currentIndex = 0;
+
+        // Postavljanje početnih vrednosti
+        function setTestimonials(index) {
+            const testimonialText1 = document.getElementById('testimonial-text-1');
+            const clientName1 = document.getElementById('client-name-1');
+            const testimonialText2 = document.getElementById('testimonial-text-2');
+            const clientName2 = document.getElementById('client-name-2');
+
+            testimonialText1.classList.remove('show', 'slide-in-left', 'slide-in-right');
+            clientName1.classList.remove('show', 'slide-in-left', 'slide-in-right');
+            testimonialText2.classList.remove('show', 'slide-in-left', 'slide-in-right');
+            clientName2.classList.remove('show', 'slide-in-left', 'slide-in-right');
+
+            setTimeout(() => {
+                testimonialText1.innerText = testimonials[index].testimonial;
+                clientName1.innerText = testimonials[index].client;
+                testimonialText2.innerText = testimonials[(index + 1) % testimonials.length].testimonial;
+                clientName2.innerText = testimonials[(index + 1) % testimonials.length].client;
+
+                // Prikazivanje sa animacijom
+                if (currentIndex === (index + 1) % testimonials.length) {
+                    testimonialText1.classList.add('show', 'slide-in-right');
+                    clientName1.classList.add('show', 'slide-in-right');
+                    testimonialText2.classList.add('show', 'slide-in-left');
+                    clientName2.classList.add('show', 'slide-in-left');
+                } else {
+                    testimonialText1.classList.add('show', 'slide-in-left');
+                    clientName1.classList.add('show', 'slide-in-left');
+                    testimonialText2.classList.add('show', 'slide-in-right');
+                    clientName2.classList.add('show', 'slide-in-right');
+                }
+            }, 500); // Delay for transition effect
+        }
+
+        // Funkcija za pomeranje levo
+        function showPrevious() {
+            currentIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
+            setTestimonials(currentIndex);
+        }
+
+        // Funkcija za pomeranje desno
+        function showNext() {
+            currentIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
+            setTestimonials(currentIndex);
+        }
+
+        // Inicijalno postavljanje
+        setTestimonials(currentIndex);
+
+        // Dodavanje događaja na dugmad
+        document.getElementById('button-left').addEventListener('click', showPrevious);
+        document.getElementById('button-right').addEventListener('click', showNext);
+
+
+
+
+
+        function changeColor(button) {
+            button.style.color = "black"; // Promena boje teksta
+        }
+
+
+
+
+        // const menuBtn = document.getElementById('menuBtn');
+        // const closeBtn = document.getElementById('closeBtn');
+        // const menu = document.getElementById('menu');
+        // const menuOverlay = document.getElementById('menuOverlay');
+
+        // menuBtn.addEventListener('click', () => {
+        //     menu.style.display = 'block';
+        //     menuOverlay.style.display = 'block';
+        // });
+
+        // closeBtn.addEventListener('click', () => {
+        //     menu.style.display = 'none';
+        //     menuOverlay.style.display = 'none';
+        // });
+
+        // menuOverlay.addEventListener('click', () => {
+        //     menu.style.display = 'none';
+        //     menuOverlay.style.display = 'none';
+        // });
+    </script>
+</body>
+
+</html>
