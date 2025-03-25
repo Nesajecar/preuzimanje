@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
 from google.cloud import storage
 import os
-
+from flask_cors import CORS
 app = Flask(__name__)
-
+CORS(app)
 # Konfiguriši autentifikaciju za Google Cloud Storage (GCS)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "PUTANJA_DO_TVOG_GCS_JSON_FAJLA.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\djeki\\OneDrive\\Desktop\\beck\\smooth-unison-428617-e2-ea4e4fc24cda.json"
 BUCKET_NAME = "moj-sajt-bucket"  # Naziv tvog Google Cloud Storage bucketa
 
 # Funkcija za upload na Google Cloud Storage
