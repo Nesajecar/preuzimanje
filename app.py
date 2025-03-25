@@ -6,15 +6,22 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Postavi putanju do JSON fajla sa kredencijalima iz Render-a
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/etc/secrets/aut1.env"
+# Preuzmi putanju do JSON fajla iz environment varijable (ako postoji)
+auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '')
 
-BUCKET_NAME = "moj-sajt-bucket"  # Naziv Google Cloud Storage bucketa
+# Provera i konfiguracija autentifikacije ako je fajl pronađen
+if auth_json_path and os.path.exists(auth_json_path):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = auth_json_path
+    print(f"Kredencijali su postavljeni sa: {auth_json_path}")
+else:
+    print(f"Greška: Fajl sa kredencijalima nije pronađen na {auth_json_path}")
+
+BUCKET_NAME = "moj-sajt-bucket"  # Naziv tvog Google Cloud Storage bucketa
 
 # Funkcija za upload na Google Cloud Storage
 def upload_to_gcs(file, destination_path):
     try:
-        client = storage.Client()
+        client = storage.Client()  # Povezivanje sa Google Cloud-om
         bucket = client.get_bucket(BUCKET_NAME)
         blob = bucket.blob(destination_path)
         blob.upload_from_file(file)
@@ -41,7 +48,6 @@ def upload_files():
     else:
         return jsonify({"message": "Greška pri uploadu!"}), 500
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-
