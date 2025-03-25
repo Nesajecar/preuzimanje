@@ -2,13 +2,24 @@ from flask import Flask, request, jsonify
 from google.cloud import storage
 import os
 from flask_cors import CORS
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
-# Relativna putanja do JSON fajla unutar projekta (ako je fajl u istom folderu ili podfolderu)
-auth_json_path = os.path.join(os.path.dirname(__file__), 'smooth-unison-428617-e2-ea4e4fc24cda.json')
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = auth_json_path
+# Postavi putanju do fajla sa varijablama okruženja (u ovom slučaju na Renderu)
+auth_json_path = '/etc/secrets/aut1.env'
+
+# Učitaj varijable iz fajla (ako je to potrebno)
+load_dotenv(auth_json_path)
+
+# Preuzmi putanju za kredencijale iz varijable okruženja
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+if not GOOGLE_APPLICATION_CREDENTIALS:
+    print("Greška: Varijabla GOOGLE_APPLICATION_CREDENTIALS nije postavljena.")
+    exit(1)
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
 
 BUCKET_NAME = "moj-sajt-bucket"  # Naziv Google Cloud Storage bucketa
 
@@ -42,6 +53,6 @@ def upload_files():
     else:
         return jsonify({"message": "Greška pri uploadu!"}), 500
 
-
 if __name__ == '__main__':
     app.run(debug=True)
+
