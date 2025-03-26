@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Preuzmi putanju do JSON fajla iz environment varijable (ako postoji)
-auth_json_path = os.getenv('//etc//secrets//auth1.env', '')
+auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/auth1.env')
 
 # Provera i konfiguracija autentifikacije ako je fajl pronađen
 if auth_json_path and os.path.exists(auth_json_path):
