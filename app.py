@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/auth1.env')
+auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/auth1')
 print(f"Pokušavam da učitam fajl sa kredencijalima sa: {auth_json_path}")
 
 if auth_json_path and os.path.exists(auth_json_path):
