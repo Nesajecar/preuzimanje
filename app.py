@@ -9,7 +9,8 @@ import os
 app = Flask(__name__)
 
 # Google Cloud Credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\djeki\\OneDrive\\Desktop\\programiranje\\Filipov_Projekat_prvi_deo\\smooth-unison-428617-e2-ea4e4fc24cda.json"
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\djeki\\OneDrive\\Desktop\\programiranje\\Filipov_Projekat_prvi_deo\\smooth-unison-428617-e2-ea4e4fc24cda.json"
+os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
 
 templates = {
     "template-9": {
