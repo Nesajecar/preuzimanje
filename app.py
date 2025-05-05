@@ -9,7 +9,7 @@ import json
 
 # Kreirajte logger za praćenje aktivnosti u aplikaciji
 # Učitaj .env fajl
-load_dotenv()
+
 
 # Podesi Flask aplikaciju
 app = Flask(__name__)
