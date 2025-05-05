@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = "tajni_kljuc_123"
 
 # GCS kredencijali
-creds_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
+creds_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv.env')
 if not creds_json:
     raise RuntimeError("GOOGLE_APPLICATION_CREDENTIALS nije postavljen")
 
