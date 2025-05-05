@@ -6,18 +6,32 @@ from google.oauth2 import service_account
 import datetime
 import os
 import json
+import logging
+
+# Kreirajte logger za praćenje aktivnosti u aplikaciji
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.secret_key = "tajni_kljuc_123"
 
 # GCS kredencijali
-creds_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv.env')
+creds_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
 if not creds_json:
     raise RuntimeError("GOOGLE_APPLICATION_CREDENTIALS nije postavljen")
 
-credentials_info = json.loads(creds_json)
-credentials = service_account.Credentials.from_service_account_info(credentials_info)
-gcs_client = storage.Client(credentials=credentials)
+# Logovanje za učitavanje kredencijala
+logger.info(f"Pokušavam da učitam fajl sa kredencijalima sa: {creds_json}")
+
+try:
+    # Pokušaj učitavanja GCS kredencijala
+    credentials_info = json.loads(creds_json)
+    credentials = service_account.Credentials.from_service_account_info(credentials_info)
+    gcs_client = storage.Client(credentials=credentials)
+    logger.info("Kredencijali uspešno učitani i GCS klijent kreiran")
+except Exception as e:
+    logger.error(f"Greška pri učitavanju kredencijala: {e}")
+    raise RuntimeError("Greška pri učitavanju kredencijala!")
 
 GCS_BUCKET_NAME = "moj-sajt-bucket"
 
@@ -25,7 +39,7 @@ GCS_BUCKET_NAME = "moj-sajt-bucket"
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
 SMTP_USER = 'djekicn05@gmail.com'  # zameni stvarnim
-SMTP_PASS = 'myku tbyv botm rrov'         # zameni stvarnim
+SMTP_PASS = 'myku tbyv botm rrov'  # zameni stvarnim
 
 # Lista dostupnih templejta
 templates = {
@@ -95,6 +109,7 @@ templates = {
         "price":49.99  
     }
 }
+
 # Prikaz svih templejta
 @app.route("/templates")
 def list_templates():
@@ -141,12 +156,17 @@ def pay():
 
     for template_id in cart:
         if template_id in templates:
-            blob = bucket.blob(templates[template_id]["gcs_path"])
-            signed_url = blob.generate_signed_url(
-                expiration=datetime.timedelta(hours=24),
-                method="GET"
-            )
-            download_links.append((templates[template_id]['name'], signed_url))
+            try:
+                blob = bucket.blob(templates[template_id]["gcs_path"])
+                signed_url = blob.generate_signed_url(
+                    expiration=datetime.timedelta(hours=24),
+                    method="GET"
+                )
+                download_links.append((templates[template_id]['name'], signed_url))
+                logger.info(f"Generisan potpisani URL za: {templates[template_id]['name']}")
+            except Exception as e:
+                logger.error(f"Greška pri generisanju URL-a za {template_id}: {e}")
+                return "Greška pri generisanju potpisanih URL-ova", 500
 
     send_email(email, download_links)
     session['cart'] = []
@@ -171,12 +191,15 @@ def send_email(to_email, download_links):
     msg['From'] = SMTP_USER
     msg['To'] = to_email
 
-    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-        server.starttls()
-        server.login(SMTP_USER, SMTP_PASS)
-        server.send_message(msg)
+    try:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USER, SMTP_PASS)
+            server.send_message(msg)
+            logger.info(f"Email uspešno poslat na {to_email}")
+    except Exception as e:
+        logger.error(f"Greška pri slanju emaila: {e}")
 
 # Pokretanje aplikacije
 if __name__ == "__main__":
     app.run(debug=True)
-
