@@ -6,34 +6,31 @@ from google.oauth2 import service_account
 import datetime
 import os
 import json
-import logging
 
 # Kreirajte logger za praćenje aktivnosti u aplikaciji
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+# Učitaj .env fajl
+load_dotenv()
 
+# Podesi Flask aplikaciju
 app = Flask(__name__)
-app.secret_key = "tajni_kljuc_123"
 
 # GCS kredencijali
-creds_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
-if not creds_json:
+auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
+if not auth_json_path:
     raise RuntimeError("GOOGLE_APPLICATION_CREDENTIALS nije postavljen")
 
-# Logovanje za učitavanje kredencijala
-logger.info(f"Pokušavam da učitam fajl sa kredencijalima sa: {creds_json}")
-
 try:
-    # Pokušaj učitavanja GCS kredencijala
-    credentials_info = json.loads(creds_json)
-    credentials = service_account.Credentials.from_service_account_info(credentials_info)
-    gcs_client = storage.Client(credentials=credentials)
-    logger.info("Kredencijali uspešno učitani i GCS klijent kreiran")
+    # Ako je fajl sa kredencijalima JSON, učitaj ga
+    with open(auth_json_path, 'r') as f:
+        credentials_info = json.load(f)
+        credentials = service_account.Credentials.from_service_account_info(credentials_info)
 except Exception as e:
-    logger.error(f"Greška pri učitavanju kredencijala: {e}")
-    raise RuntimeError("Greška pri učitavanju kredencijala!")
+    raise RuntimeError(f"Greška pri učitavanju kredencijala: {e}")
 
+# Inicijalizuj GCS klijent
+gcs_client = storage.Client(credentials=credentials)
 GCS_BUCKET_NAME = "moj-sajt-bucket"
+
 
 # Email podešavanja
 SMTP_SERVER = 'smtp.gmail.com'
