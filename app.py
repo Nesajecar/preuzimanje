@@ -7,7 +7,21 @@ import datetime
 import os
 
 app = Flask(__name__)
+import json
+from google.oauth2 import service_account
+from google.cloud import storage
+import os
 
+# Učitaj JSON iz promenljive okruženja
+creds_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
+
+if not creds_json:
+    raise RuntimeError("GOOGLE_APPLICATION_CREDENTIALS_JSON not set")
+
+credentials_info = json.loads(creds_json)
+credentials = service_account.Credentials.from_service_account_info(credentials_info)
+
+gcs_client = storage.Client(credentials=credentials)
 # Google Cloud Credentials
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\djeki\\OneDrive\\Desktop\\programiranje\\Filipov_Projekat_prvi_deo\\smooth-unison-428617-e2-ea4e4fc24cda.json"
 os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
