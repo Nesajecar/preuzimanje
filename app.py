@@ -24,7 +24,7 @@ credentials = service_account.Credentials.from_service_account_info(credentials_
 gcs_client = storage.Client(credentials=credentials)
 # Google Cloud Credentials
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\djeki\\OneDrive\\Desktop\\programiranje\\Filipov_Projekat_prvi_deo\\smooth-unison-428617-e2-ea4e4fc24cda.json"
-os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
+#os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
 
 templates = {
     "template-9": {
