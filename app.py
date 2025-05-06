@@ -13,6 +13,7 @@ import json
 
 # Podesi Flask aplikaciju
 app = Flask(__name__)
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "tajna_lozinka")
 
 # GCS kredencijali
 auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
