@@ -124,11 +124,15 @@ def checkout():
 # Dodavanje u korpu
 @app.route("/add_to_cart/<template_id>")
 def add_to_cart(template_id):
+    print(f"Pokušaj dodavanja templejta: {template_id}")
     if template_id not in templates:
+        print(f"Template ID '{template_id}' nije pronađen u listi.")
         return "Template ne postoji", 404
+
     cart = session.get('cart', [])
     cart.append(template_id)
     session['cart'] = cart
+    print(f"Korpa sada sadrži: {cart}")
     return redirect("/cart")
 
 # Prikaz korpe
