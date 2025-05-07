@@ -148,9 +148,10 @@ def view_cart():
 # Plaćanje
 @app.route("/pay", methods=["POST"])
 def pay():
-    email = request.form.get("email")
-    cart = session.get("cart", [])
-
+    data = request.get_json()
+    email = data.get("email")
+    cart = data.get("cart", [])
+    
     if not email or not cart:
         return "Email ili korpa nisu validni", 400
 
