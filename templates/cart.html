@@ -53,6 +53,15 @@
                 });
             }
         }).render("#paypal-button-container");
+    const cart = JSON.parse(localStorage.getItem("cart"));
+        fetch("https://test1-0xhm.onrender.com/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ cart })
+        });
+
     </script>
 </body>
 </html>
