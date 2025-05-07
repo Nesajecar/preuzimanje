@@ -6,7 +6,8 @@ from google.oauth2 import service_account
 import datetime
 import os
 import json
-
+from flask_cors import CORS
+CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b310e2aacba9bc94.webflow.io/"])
 # Kreirajte logger za praćenje aktivnosti u aplikaciji
 # Učitaj .env fajl
 
