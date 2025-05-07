@@ -204,6 +204,18 @@ def send_email(to_email, download_links):
     except Exception as e:
         logger.error(f"Greška pri slanju emaila: {e}")
 
+@app.route("/api/cart_data", methods=["POST"])
+def cart_data():
+    data = request.get_json()
+    cart_ids = data.get("cart", [])
+
+    all_templates = templates
+
+    items = [all_templates[template_id] for template_id in cart_ids if template_id in all_templates]
+    total = sum(item["price"] for item in items)
+
+    return jsonify({"items": items, "total": total})
+
 # Pokretanje aplikacije
 if __name__ == "__main__":
     app.run(debug=True)
