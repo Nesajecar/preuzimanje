@@ -17,74 +17,43 @@
     <div id="paypal-button-container"></div>
 
     <script>
-        // >>> KONFIGURACIJA PROIZVODA <<<
-        const products = {
-            "template-1": { name: "Template 1", price: 10 },
-            "template-2": { name: "Template 2", price: 15 },
-            "template-3": { name: "Template 3", price: 20 },
-            "template-9": { name: "Template 9", price: 25 }
-        };
-
+    document.addEventListener("DOMContentLoaded", () => {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const cartItemsEl = document.getElementById("cart-items");
-        const totalPriceEl = document.getElementById("total-price");
-        let total = 0;
 
+        // Ako je korpa prazna, prikaži poruku i prekini dalje
         if (cart.length === 0) {
-            cartItemsEl.innerHTML = "<li>Korpa je prazna.</li>";
-        } else {
-            cart.forEach(itemId => {
-                const item = products[itemId];
-                if (item) {
-                    const li = document.createElement("li");
-                    li.textContent = `${item.name} - $${item.price}`;
-                    cartItemsEl.appendChild(li);
-                    total += item.price;
-                }
-            });
+            document.getElementById("cart-items").innerHTML = "<li>Korpa je prazna.</li>";
+            document.getElementById("total-price").textContent = "0.00";
+            return;
         }
 
-        totalPriceEl.textContent = total.toFixed(2);
-
-        // >>> PAYPAL INTEGRACIJA <<<
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: { value: total.toFixed(2) }
-                    }]
-                });
+        // Pošalji korpu serveru i prikaži rezultat
+        fetch("/api/cart_data", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    const email = document.getElementById("email").value;
-                    if (!email) {
-                        alert("Unesite email.");
-                        return;
-                    }
+            body: JSON.stringify({ cart: cart })
+        })
+        .then(res => res.json())
+        .then(data => {
+            const cartItemsEl = document.getElementById("cart-items");
+            cartItemsEl.innerHTML = ""; // očisti ako je nešto bilo
 
-                    // >>> SLANJE PODATAKA BACKENDU <<<
-                    fetch("/pay", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            email: email,
-                            cart: cart
-                        })
-                    }).then(res => {
-                        if (res.ok) {
-                            localStorage.removeItem("cart"); // očisti korpu
-                            window.location.href = `/success?email=${encodeURIComponent(email)}`;
-                        } else {
-                            alert("Greška prilikom slanja porudžbine.");
-                        }
-                    });
-                });
-            }
-        }).render("#paypal-button-container");
-    </script>
+            data.items.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = `${item.name} - $${item.price}`;
+                cartItemsEl.appendChild(li);
+            });
+
+            document.getElementById("total-price").textContent = data.total.toFixed(2);
+        })
+        .catch(err => {
+            console.error("Greška pri dohvaćanju korpe:", err);
+        });
+    });
+</script>
+
 </body>
 </html>
 
