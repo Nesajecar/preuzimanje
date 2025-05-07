@@ -7,7 +7,7 @@ import datetime
 import os
 import json
 from flask_cors import CORS
-CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b310e2aacba9bc94.webflow.io/"])
+
 # Kreirajte logger za praćenje aktivnosti u aplikaciji
 # Učitaj .env fajl
 
@@ -15,7 +15,7 @@ CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b3
 # Podesi Flask aplikaciju
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "tajna_lozinka")
-
+CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b310e2aacba9bc94.webflow.io/"])
 # GCS kredencijali
 auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
 if not auth_json_path:
