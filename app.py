@@ -200,15 +200,24 @@ def send_email(to_email, download_links):
     except Exception as e:
         logger.error(f"Greška pri slanju emaila: {e}")
 
+# globalna memorijska korpa (možeš zameniti Redis-om kasnije)
+global_carts = {}
+
 @app.route("/api/add_to_cart", methods=["POST"])
 def add_to_cart_api():
     data = request.get_json()
+    cart_id = data.get("cart_id")
     template_id = data.get("template_id")
-    cart = session.get("cart", [])
-    if template_id and template_id not in cart:
+
+    if not cart_id or not template_id:
+        return {"status": "error", "message": "cart_id i template_id su obavezni"}, 400
+
+    cart = global_carts.get(cart_id, [])
+    if template_id not in cart:
         cart.append(template_id)
-        session["cart"] = cart
-    return {"status": "ok"}
+    global_carts[cart_id] = cart
+
+    return {"status": "ok", "cart": cart}
 
 if __name__ == "__main__":
     app.run(debug=True)
