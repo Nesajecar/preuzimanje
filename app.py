@@ -7,6 +7,8 @@ import datetime
 import os
 import json
 from flask_cors import CORS
+from flask_session import Session
+
 
 # Kreirajte logger za praćenje aktivnosti u aplikaciji
 # Učitaj .env fajl
@@ -16,6 +18,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "tajna_lozinka")
 CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b310e2aacba9bc94.webflow.io"])
+app.config["SESSION_TYPE"] = "filesystem"  # ili "redis" ako imaš Redis server
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+Session(app)
 
 # GCS kredencijali
 auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
