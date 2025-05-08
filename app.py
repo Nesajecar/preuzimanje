@@ -7,7 +7,7 @@ import datetime
 import os
 import json
 from flask_cors import CORS
-from flask_session import Session
+
 
 
 # Kreirajte logger za praćenje aktivnosti u aplikaciji
