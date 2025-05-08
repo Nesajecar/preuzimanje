@@ -15,7 +15,8 @@ from flask_cors import CORS
 # Podesi Flask aplikaciju
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "tajna_lozinka")
-CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b310e2aacba9bc94.webflow.io/all-templates"])
+CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b310e2aacba9bc94.webflow.io"])
+
 # GCS kredencijali
 auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
 if not auth_json_path:
