@@ -21,7 +21,7 @@ CORS(app, supports_credentials=True, origins=["https://template-site-96dfb5-50b3
 app.config["SESSION_TYPE"] = "filesystem"  # ili "redis" ako imaš Redis server
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_USE_SIGNER"] = True
-Session(app)
+session(app)
 
 # GCS kredencijali
 auth_json_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', '/etc/secrets/fileenv')
