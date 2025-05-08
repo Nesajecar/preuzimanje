@@ -116,10 +116,6 @@ templates = {
     }
 }
 
-# Prikaz svih templejta
-@app.route("/templates")
-def list_templates():
-    return render_template("templates.html", templates=templates)
 
 # Checkout stranica
 @app.route("/")
@@ -221,7 +217,10 @@ def add_to_cart_api():
         cart.append(template_id)
         session["cart"] = cart
     return {"status": "ok"}
-
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 # Pokretanje aplikacije
 if __name__ == "__main__":
     app.run(debug=True)
