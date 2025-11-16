@@ -1,0 +1,10 @@
+# Build artefakti
+*.o
+*.bin
+*.img
+*.iso
+
+# Backup fajlovi
+*~
+*.bak
+
